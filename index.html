@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Vaishnavi</title>
+  <style>
+    :root {
+      --sky-blue: #8fd3ff;
+      --light-blue: #cbeeff;
+      --deep-blue: #0a1b3d;
+      --night: #05070f;
+      --moon: #f7f7ff;
+      --text: #eaf7ff;
+      --glow: 0 0 8px rgba(143, 211, 255, 0.6), 0 0 20px rgba(143, 211, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #03040b 0%, #06122b 45%, #0e2a56 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .stars,
+    .stars-2,
+    .stars-3 {
+      position: absolute;
+      inset: -20% -20%;
+      background-repeat: repeat;
+      animation: twinkle 6s ease-in-out infinite alternate;
+    }
+
+    .stars {
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.95) 1px, transparent 1.8px),
+        radial-gradient(circle at 80% 60%, rgba(143, 211, 255, 0.95) 1.2px, transparent 2px),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.85) 1px, transparent 1.9px),
+        radial-gradient(circle at 10% 70%, rgba(203, 238, 255, 0.9) 1.1px, transparent 2px);
+      background-size: 300px 300px;
+      opacity: 0.75;
+    }
+
+    .stars-2 {
+      background-image:
+        radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.95) 1px, transparent 2px),
+        radial-gradient(circle at 30% 55%, rgba(203, 238, 255, 0.95) 1.1px, transparent 2px),
+        radial-gradient(circle at 90% 90%, rgba(143, 211, 255, 0.95) 1px, transparent 2px);
+      background-size: 420px 420px;
+      animation-duration: 8s;
+      opacity: 0.6;
+    }
+
+    .stars-3 {
+      background-image:
+        radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.9) 0.9px, transparent 1.8px),
+        radial-gradient(circle at 15% 15%, rgba(143, 211, 255, 0.9) 1px, transparent 1.8px);
+      background-size: 550px 550px;
+      animation-duration: 10s;
+      opacity: 0.45;
+    }
+
+    .moon {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      width: 138px;
+      height: 138px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 28% 26%, rgba(255, 255, 255, 0.9) 0%, rgba(241, 241, 241, 0.78) 16%, rgba(190, 190, 190, 0.18) 34%, transparent 42%),
+        radial-gradient(circle at 68% 70%, rgba(140, 140, 140, 0.26) 0%, transparent 31%),
+        radial-gradient(circle at 26% 74%, rgba(152, 152, 152, 0.24) 0%, transparent 27%),
+        radial-gradient(circle at 50% 50%, #f1f1f1 0%, #d8d8d8 58%, #b1b1b1 100%);
+      box-shadow:
+        0 0 18px rgba(248, 248, 248, 0.52),
+        0 0 44px rgba(218, 226, 242, 0.2),
+        0 0 74px rgba(163, 175, 196, 0.16);
+      animation: moonPulse 4.5s ease-in-out infinite;
+      overflow: hidden;
+      filter: saturate(0.22) contrast(1.18);
+    }
+
+    .moon::before,
+    .moon::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(0.2px);
+    }
+
+    .moon::before {
+      inset: 12% 10%;
+      background:
+        radial-gradient(circle at 18% 26%, rgba(110, 110, 110, 0.34) 0 9px, rgba(210, 210, 210, 0.24) 10px, transparent 12px),
+        radial-gradient(circle at 54% 22%, rgba(106, 106, 106, 0.3) 0 8px, rgba(214, 214, 214, 0.2) 9px, transparent 11px),
+        radial-gradient(circle at 74% 58%, rgba(106, 106, 106, 0.32) 0 11px, rgba(214, 214, 214, 0.2) 12px, transparent 14px),
+        radial-gradient(circle at 34% 72%, rgba(106, 106, 106, 0.28) 0 7px, rgba(214, 214, 214, 0.18) 8px, transparent 10px),
+        radial-gradient(circle at 64% 38%, rgba(112, 112, 112, 0.24) 0 6px, rgba(210, 210, 210, 0.15) 7px, transparent 9px),
+        radial-gradient(circle at 50% 50%, transparent 0%, rgba(175, 175, 175, 0.2) 82%, rgba(74, 74, 74, 0.28) 100%);
+    }
+
+    .moon::after {
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.22) 0%, transparent 46%),
+        radial-gradient(circle at 72% 78%, transparent 0 46%, rgba(70, 70, 70, 0.24) 100%);
+      mix-blend-mode: overlay;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.2) 70%, transparent 100%);
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 80px 0 40px;
+    }
+
+    section {
+      margin: 48px 0;
+      padding: 34px 26px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(9, 26, 56, 0.56), rgba(13, 48, 90, 0.35));
+      backdrop-filter: blur(7px);
+      border: 1px solid rgba(203, 238, 255, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 45px rgba(143, 211, 255, 0.22);
+    }
+
+    .hero {
+      text-align: center;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1.15;
+      color: #e9f8ff;
+      text-shadow: 0 0 12px rgba(143, 211, 255, 0.85), 0 0 32px rgba(143, 211, 255, 0.55);
+    }
+
+    .hero p {
+      margin-top: 14px;
+      font-size: clamp(1rem, 2.6vw, 1.55rem);
+      color: var(--light-blue);
+      text-shadow: var(--glow);
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      margin-bottom: 14px;
+      color: #ddf4ff;
+      text-shadow: 0 0 10px rgba(143, 211, 255, 0.6);
+    }
+
+    .message {
+      line-height: 1.8;
+      color: #e8f7ff;
+      font-size: 1.02rem;
+    }
+
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      text-align: center;
+    }
+
+    .quote-card {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(7, 28, 65, 0.55);
+      border: 1px solid rgba(143, 211, 255, 0.22);
+      box-shadow: inset 0 0 16px rgba(143, 211, 255, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .quote-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(143, 211, 255, 0.25);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+    }
+
+    .photo {
+      height: 160px;
+      border-radius: 16px;
+      border: 1px solid rgba(203, 238, 255, 0.35);
+      background: linear-gradient(145deg, rgba(143, 211, 255, 0.24), rgba(2, 11, 25, 0.65));
+      display: grid;
+      place-items: center;
+      color: #dbf4ff;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-align: center;
+      padding: 10px;
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .photo:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 0 2px rgba(143, 211, 255, 0.45), 0 0 22px rgba(143, 211, 255, 0.42);
+    }
+
+    .wish-line {
+      min-height: 2.8em;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      line-height: 1.65;
+      color: #e7f7ff;
+      text-shadow: 0 0 10px rgba(203, 238, 255, 0.65);
+      border-right: 2px solid rgba(203, 238, 255, 0.8);
+      white-space: normal;
+      animation: caret 0.9s steps(1) infinite;
+      padding-right: 4px;
+      display: inline-block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 12px 34px;
+      color: #d7f2ff;
+      text-shadow: 0 0 10px rgba(143, 211, 255, 0.4);
+      font-size: 0.98rem;
+    }
+
+    .final-wish-wrap {
+      text-align: center;
+      margin: 12px 0 8px;
+    }
+
+    .final-wish-btn {
+      border: 1px solid rgba(203, 238, 255, 0.55);
+      background: linear-gradient(135deg, rgba(143, 211, 255, 0.25), rgba(16, 62, 122, 0.55));
+      color: #ecf8ff;
+      border-radius: 999px;
+      padding: 11px 20px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      font-weight: 600;
+      box-shadow: 0 0 16px rgba(143, 211, 255, 0.28);
+    }
+
+    .final-wish-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(143, 211, 255, 0.38), rgba(16, 62, 122, 0.7));
+      box-shadow: 0 0 20px rgba(143, 211, 255, 0.5);
+    }
+
+    .final-wish-text {
+      margin-top: 14px;
+      color: #eaf8ff;
+      font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+      line-height: 1.65;
+      text-shadow: 0 0 12px rgba(203, 238, 255, 0.5);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      min-height: 1.8em;
+      padding: 0 14px;
+    }
+
+    .final-wish-text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.4; transform: translateY(0); }
+      to { opacity: 0.9; transform: translateY(-8px); }
+    }
+
+    @keyframes moonPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(-12vh) scale(1.15); opacity: 0; }
+    }
+
+    @keyframes caret {
+      50% { border-right-color: transparent; }
+    }
+
+    @media (max-width: 760px) {
+      .moon {
+        width: 102px;
+        height: 102px;
+        right: 16px;
+        top: 16px;
+      }
+
+      .container {
+        padding-top: 68px;
+      }
+
+      section {
+        padding: 24px 16px;
+        margin: 28px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="stars" data-depth="0.05"></div>
+    <div class="stars-2" data-depth="0.1"></div>
+    <div class="stars-3" data-depth="0.16"></div>
+    <div class="moon"></div>
+  </div>
+
+  <main class="container">
+    <section class="hero" id="top">
+      <h1>Happy Birthday VAISHNAVI 🎉</h1>
+      <p>My Best Friend Forever 💙</p>
+    </section>
+
+    <section id="message">
+      <h2>From My Heart</h2>
+      <p class="message">
+        Vaishnavi, in my whole life, no one has understood me the way you do.
+        You have always stood by me with kindness, strength, and endless support.
+        Through every smile and every difficult day, you made my world feel lighter.
+        You are not only my best friend, you are one of the most special blessings in my life.
+        On your birthday, I just want to thank you for being exactly who you are:
+        pure-hearted, beautiful, and unforgettable.
+      </p>
+    </section>
+
+    <section>
+      <h2>Best Friend Quotes</h2>
+      <div class="quotes-grid">
+        
+        <article class="quote-card">"A best friend is like a star — you don't always see them, but you know they're always there."</article>
+        <article class="quote-card">"True friendship shines brighter than the stars in the sky."</article>
+        <article class="quote-card">"You are not just my best friend, you are my forever person."</article>
+        <article class="quote-card">"Side by side or miles apart, best friends are always close at heart."</article>
+      </div>
+    </section>
+
+    
+
+    <section>
+      <h2>Special Birthday Wish</h2>
+      <p class="wish-line" id="typingText" ></p>
+    </section>
+  </main>
+
+  <div class="final-wish-wrap">
+    <button class="final-wish-btn" id="finalWishBtn" type="button">Click for a Special Wish</button>
+    <p class="final-wish-text" id="finalWishText"></p>
+  </div>
+
+  <footer>
+    Made with love for VAISHNAVI 🌙✨
+  </footer>
+
+  <script>
+    const wishes = "Wishing you a sky full of stars, a heart full of joy, and a life full of beautiful dreams. Happy Birthday, my forever best friend.";
+    const typingText = document.getElementById("typingText");
+    let idx = 0;
+
+    function typeWish() {
+      if (idx <= wishes.length) {
+        typingText.textContent = wishes.slice(0, idx);
+        idx += 1;
+        setTimeout(typeWish, 32);
+      }
+    }
+
+    typeWish();
+
+    const sky = document.querySelector(".sky");
+    for (let i = 0; i < 28; i += 1) {
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.animationDuration = `${6 + Math.random() * 8}s`;
+      sparkle.style.animationDelay = `${Math.random() * 8}s`;
+      sparkle.style.opacity = `${0.35 + Math.random() * 0.65}`;
+      sky.appendChild(sparkle);
+    }
+
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      document.querySelectorAll("[data-depth]").forEach((layer) => {
+        const depth = Number(layer.getAttribute("data-depth")) || 0;
+        layer.style.transform = `translateY(${y * depth}px)`;
+      });
+    }, { passive: true });
+
+    const finalWishBtn = document.getElementById("finalWishBtn");
+    const finalWishText = document.getElementById("finalWishText");
+
+    finalWishBtn.addEventListener("click", () => {
+      finalWishText.textContent = "HAPPIEST BIRTHDAY VAISHU.. STAY BLESSED AND HAPPY FOREVER.LUV YOU UYIREY🧿🎀❤️✨️";
+      finalWishText.classList.add("show");
+    });
+
+  </script>
+</body>
+</html>
